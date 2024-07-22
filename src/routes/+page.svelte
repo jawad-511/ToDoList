@@ -1,14 +1,24 @@
 <script lang='ts'>
 import Header from '$lib/Header.svelte';
-import {name} from '$lib/stores/name';
+import {tasks} from '$lib/stores/tasks';
+    import dayjs from 'dayjs';
 
-function updateName(name : string): string {
-	return name + '1';
+let title = "";
+$: console.log(title);
+
+function addTask(){
+	tasks.update((currentTasks) => {
+	currentTasks.push({
+		title,
+		assignedDate: dayjs(),
+		isDone: false,
+		});
+		return currentTasks;
+	});
 }
+title = "";
 
-name.update(updateName);
-console.log($name);
-
+$: console.log($tasks);
 </script>
 <div class="p-16 flex flex-col gap-10">
 		<Header/><!--Component-->
@@ -17,8 +27,8 @@ console.log($name);
 
 <div class="input-group input-group-divider flex justify-between">
 
-	<input class="flex-1 !bg-white" type="search" placeholder="مهمة..." />
-	<button class="bg-[#141c2d] text-white">اضافة</button>
+	<input bind:value={title} class="flex-1 !bg-white" type="search" placeholder="مهمة..." />
+	<button on:click={addTask} class="bg-[#141c2d] text-white">اضافة</button>
 </div>
 		
 	
