@@ -8,7 +8,7 @@
  
 </script>
 <svelte:head>
-  <title>To Do List</title>
+  <title>متتبع المهام</title>
 </svelte:head>
 
 <div

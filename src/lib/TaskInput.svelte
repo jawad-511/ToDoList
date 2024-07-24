@@ -1,11 +1,10 @@
 <script lang="ts">
   import { tasks } from "$lib/stores/tasks";
   import dayjs from "dayjs";
-    import AddTask from "./icons/AddTask.svelte";
-  
+  import AddTask from "./icons/AddTask.svelte";
 
   let title = "";
-  let dateTime = dayjs().format('YYYY-MM-DDThh:mm');
+  let dateTime = dayjs().format("YYYY-MM-DDThh:mm");
 
   $: console.log(dateTime);
 
@@ -16,7 +15,7 @@
         assignedDate: dateTime,
         isDone: false,
       });
-      return currentTasks.sort((a:Task , b:Task) =>{
+      return currentTasks.sort((a: Task, b: Task) => {
         return dayjs(a.assignedDate).unix() - dayjs(b.assignedDate).unix();
       });
     });
@@ -24,9 +23,7 @@
   }
 </script>
 
-<div
-  class="input-group input-group-divider flex justify-between flex-col sm:flex-row !bg-white rounded-lg"
->
+<form class="input-group input-group-divider flex justify-between flex-col sm:flex-row !bg-white rounded-lg">
   <input
     bind:value={title}
     class="flex-1"
@@ -39,9 +36,8 @@
     title="Input (datetime-local)"
     type="datetime-local"
   />
-  <button on:click={addTask} class="bg-[#141c2d] text-white p-2">
-    <span class="mx-auto">
-      <AddTask />
-  </span>
-</button>
-</div>
+  
+  <button type="submit" on:click={addTask} class="bg-[#141c2d] text-white p-2" disabled={title.trim().length == 0}>
+    <span class="mx-auto"><AddTask /></span>
+  </button>
+</form>
