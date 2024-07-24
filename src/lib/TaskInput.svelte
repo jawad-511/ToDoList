@@ -4,7 +4,7 @@
   import AddTask from "./icons/AddTask.svelte";
 
   let title = "";
-  let dateTime = dayjs().format("YYYY-MM-DDThh:mm");
+  let dateTime = dayjs().format("YYYY-MM-DDTHH:mm");
 
   $: console.log(dateTime);
 
