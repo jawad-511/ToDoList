@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tasks } from "$lib/stores/tasks";
   import dayjs from "dayjs";
+    import AddTask from "./icons/AddTask.svelte";
   
 
   let title = "";
@@ -40,7 +41,7 @@
   />
   <button on:click={addTask} class="bg-[#141c2d] text-white p-2">
     <span class="mx-auto">
-      اضافة
+      <AddTask />
   </span>
 </button>
 </div>
