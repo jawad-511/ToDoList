@@ -32,7 +32,7 @@
   />
   <input
     bind:value={dateTime}
-    class="input sm:w-fit"
+    class="input sm:w-fit rounded-none"
     title="Input (datetime-local)"
     type="datetime-local"
   />
