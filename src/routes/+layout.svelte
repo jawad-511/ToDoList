@@ -16,5 +16,5 @@
 
   initializeStores();
 </script>
-<Modal />
+<Modal buttonPositive="bg-red-600 rounded-full "  />
 <slot />

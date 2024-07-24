@@ -9,18 +9,23 @@
 
   const modalStore = getModalStore();
 
-  function confirmDelete(task : Task) {
+  function confirmDelete(task: Task) {
     const modal: ModalSettings = {
       type: "confirm",
       // Data
       title: "هل تود حقًا حذف المهمة؟",
-      body:`عزيزي المستخدم,نأسف لإبلاغك أنه بمجرد حذف المهمة: "${task.title}" ، لن يكون بإمكانك استعادتها. يرجى التأكد من أنك ترغب فعلاً في حذفها قبل الاستمرار.`,
-      // TRUE if confirm pressed, FALSE if cancel pressed
-      response: (r: boolean) => console.log("response:", r),
-      buttonTextCancel : ('إلغاء'),
-      buttonTextConfirm : ('تأكيد'),
-      
-    
+      body: `عزيزي المستخدم,نأسف لإبلاغك أنه بمجرد حذف المهمة: "${task.title}" ، لن يكون بإمكانك استعادتها. يرجى التأكد من أنك ترغب فعلاً في حذفها قبل الاستمرار.`,
+      buttonTextCancel: "إلغاء",
+      buttonTextConfirm: "تأكيد",
+      response: (r: boolean) => {
+        if (r) {
+          tasks.update((currenTasks) => {
+            let index = $tasks.indexOf(task);
+            currenTasks.splice(index , 1);
+            return currenTasks;
+          });
+        }
+      },
     };
     modalStore.trigger(modal);
   }
