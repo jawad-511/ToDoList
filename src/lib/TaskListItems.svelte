@@ -3,6 +3,7 @@
   import { tasks } from "$lib/stores/tasks";
   import relativeTime from "dayjs/plugin/relativeTime";
   import { slide } from 'svelte/transition';
+  import TimeIcon from "./icons/TimeIcon.svelte";
 
   import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
     import { quintOut } from "svelte/easing";
@@ -46,9 +47,12 @@
       </div>
       <div class="flex gap-2">
         <button
-          class="btn bg-[#151d2f] text-white hover:bg-slate-800 rounded-md p-2 w-40"
+          class="btn bg-[#151d2f] text-white hover:bg-slate-800 rounded-md p-2 w-fit p-2"
         >
-          {dayjs(task.assignedDate).format("hh:mm")}
+          {dayjs(task.assignedDate).format("dddd D MMMM YYYY : hh:mm")}
+          <div class='mr-1'>
+            <TimeIcon />
+          </div>
         </button>
 
         <button
