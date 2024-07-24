@@ -2,8 +2,10 @@
   import dayjs from "dayjs";
   import { tasks } from "$lib/stores/tasks";
   import relativeTime from "dayjs/plugin/relativeTime";
+  import { slide } from 'svelte/transition';
 
   import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
+    import { quintOut } from "svelte/easing";
 
   dayjs.extend(relativeTime);
 
@@ -35,7 +37,9 @@
 
 {#each $tasks as task}
   {#if !task.isDone == doneTasks}
-    <li class="bg-white p-2 rounded-md flex justify-between items-center">
+    <li 
+    transition:slide
+    class="bg-white p-2 rounded-md flex justify-between items-center">
       <div>
         <input bind:checked={task.isDone} class="checkbox" type="checkbox" />
         <span class="mr-1">{task.title}</span>

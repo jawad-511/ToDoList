@@ -3,27 +3,41 @@
   import dayjs from "dayjs";
 
   let title = "";
+  let dateTime = dayjs().format('YYYY-MM-DDThh:mm');
+
+  $: console.log(dateTime);
 
   function addTask() {
     tasks.update((currentTasks) => {
       currentTasks.push({
         title,
-        assignedDate:dayjs().format(),
+        assignedDate: dateTime,
         isDone: false,
       });
       return currentTasks;
     });
     title = "";
   }
-  
 </script>
 
-<div class="input-group input-group-divider flex justify-between">
+<div
+  class="input-group input-group-divider flex justify-between flex-col sm:flex-row !bg-white rounded-lg"
+>
   <input
     bind:value={title}
-    class="flex-1 !bg-white"
+    class="flex-1"
     type="search"
     placeholder="مهمة..."
   />
-  <button on:click={addTask} class="bg-[#141c2d] text-white">اضافة</button>
+  <input
+    bind:value={dateTime}
+    class="input sm:w-fit"
+    title="Input (datetime-local)"
+    type="datetime-local"
+  />
+  <button on:click={addTask} class="bg-[#141c2d] text-white p-2">
+    <span class="mx-auto">
+      اضافة
+  </span>
+</button>
 </div>

@@ -32,7 +32,7 @@ const popupCombobox: PopupSettings = {
   </div>
   
     
-<button class="btn variant-filled w-48 justify-between" use:popup={popupCombobox}>
+<button class="btn variant-filled w-44 sm:w-48 justify-between" use:popup={popupCombobox}>
 	<span>{comboboxValue}</span>
 	<span class='text-4xl'>↓</span>
 </button>
