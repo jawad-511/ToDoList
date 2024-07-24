@@ -1,6 +1,7 @@
 <script lang="ts">
   import { tasks } from "$lib/stores/tasks";
   import dayjs from "dayjs";
+  
 
   let title = "";
   let dateTime = dayjs().format('YYYY-MM-DDThh:mm');
@@ -14,7 +15,9 @@
         assignedDate: dateTime,
         isDone: false,
       });
-      return currentTasks;
+      return currentTasks.sort((a:Task , b:Task) =>{
+        return dayjs(a.assignedDate).unix() - dayjs(b.assignedDate).unix();
+      });
     });
     title = "";
   }

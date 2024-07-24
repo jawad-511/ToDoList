@@ -1,12 +1,13 @@
 <script lang="ts">
-  import dayjs from "dayjs";
+ 
   import { tasks } from "$lib/stores/tasks";
   import relativeTime from "dayjs/plugin/relativeTime";
-  import { slide } from 'svelte/transition';
+  import { slide } from "svelte/transition";
   import TimeIcon from "./icons/TimeIcon.svelte";
-
+  import { filter } from "$lib/stores/filter";
   import { getModalStore, type ModalSettings } from "@skeletonlabs/skeleton";
-    import { quintOut } from "svelte/easing";
+  import { quintOut } from "svelte/easing";
+    import dayjs from "dayjs";
 
   dayjs.extend(relativeTime);
 
@@ -24,7 +25,7 @@
         if (r) {
           tasks.update((currenTasks) => {
             let index = $tasks.indexOf(task);
-            currenTasks.splice(index , 1);
+            currenTasks.splice(index, 1);
             return currenTasks;
           });
         }
@@ -34,13 +35,24 @@
   }
 
   export let doneTasks: Boolean;
+
+  function applyFilter(filter: typeof $filter, task: Task): boolean {
+    switch (filter) {
+      case "مهام اليوم":
+        return dayjs(task.assignedDate).unix() - dayjs().unix() <= 24 * 60 * 60;
+      case "جميع المهام":
+      default:
+        return true;
+    }
+  }
 </script>
 
 {#each $tasks as task}
-  {#if !task.isDone == doneTasks}
-    <li 
-    transition:slide
-    class="bg-white p-2 rounded-md flex justify-between items-center">
+  {#if !task.isDone == doneTasks && applyFilter($filter , task)}
+    <li
+      transition:slide
+      class="bg-white p-2 rounded-md flex justify-between items-center"
+    >
       <div>
         <input bind:checked={task.isDone} class="checkbox" type="checkbox" />
         <span class="mr-1">{task.title}</span>
@@ -50,7 +62,7 @@
           class="btn bg-[#151d2f] text-white hover:bg-slate-800 rounded-md p-2 w-fit p-2"
         >
           {dayjs(task.assignedDate).format("dddd D MMMM YYYY : hh:mm")}
-          <div class='mr-1'>
+          <div class="mr-1">
             <TimeIcon />
           </div>
         </button>
